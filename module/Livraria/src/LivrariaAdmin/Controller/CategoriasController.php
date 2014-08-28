@@ -6,7 +6,10 @@ use Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\ViewModelx;
 
 class CategoriasController extends AbstractActionController {
-    
+    /**
+     *
+     * @var type EntityManager
+     */
     protected $em;
 
 
