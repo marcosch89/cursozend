@@ -3,15 +3,14 @@
 namespace Livraria\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+//use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="categorias")
- * @ORM\Entity(repositoryClass="Livraria\Entity\
  */
-
 class Categoria {
+
     /**
      *
      * @ORM\Id
@@ -20,13 +19,13 @@ class Categoria {
      * @var int
      */
     protected $id;
-    
+
     /**
-     * @ORM\Column(type="text")
      * @var string
+     * @ORM\Column(type="text")
      */
-    
     protected $nome;
+
     public function getId() {
         return $this->id;
     }
@@ -42,14 +41,13 @@ class Categoria {
     public function setNome($nome) {
         $this->nome = $nome;
     }
-    
+
     public function __toString() {
         return $this->nome;
-        
-    }
-    public function toArray() {
-        return array('id'=>$this->getId(),'nome'=>$this->getNome());
     }
 
+    public function toArray() {
+        return array('id' => $this->getId(), 'nome' => $this->getNome());
+    }
 
 }

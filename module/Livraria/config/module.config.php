@@ -1,5 +1,7 @@
 <?php
 
+namespace Livraria;
+
 return array(
     'router' => array(
         'routes' => array(
@@ -46,29 +48,16 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
-    'service_manager' => array(
-        'factories' => array(
-            'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
-        ),
-    ),
-    'translator' => array(
-        'locale' => 'en_US',
-        'translation_patterns' => array(
-            array(
-                'type' => 'gettext',
-                'base_dir' => __DIR__ . '/../language',
-                'pattern' => '%s.mo'
-            ),
-        ),
-    ),
     'doctrine' => array(
         'driver' => array(
-            'livraria' => array(
-                'paths' => array(__DIR__ . '/../src/Livraria/Entity')
+            __NAMESPACE__ . '_driver' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(__DIR__ . '../src/' . __NAMESPACE__ . '/Entity')
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'Livraria\Entity' => 'livraria'
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
                 ),
             ),
         ),
