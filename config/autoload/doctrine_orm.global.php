@@ -10,10 +10,7 @@ return array(
                     'port' => '5432',
                     'user' => 'postgres',
                     'password' => 'm2smart',
-                    'dbname' => 'zf2_livraria',
-                    'driverOptions' => array(
-                        PDO::PGSQL_ATTR_INNIT_COMMAND => "SET NAMES 'UTF-8'"
-                    )
+                    'dbname' => 'zf2_livraria'
                 )
             )
         )

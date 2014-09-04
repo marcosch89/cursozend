@@ -3,7 +3,7 @@
 namespace Livraria\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-//use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Categoria {
 
     /**
-     *
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
@@ -21,8 +20,8 @@ class Categoria {
     protected $id;
 
     /**
-     * @var string
      * @ORM\Column(type="text")
+     * @var string
      */
     protected $nome;
 
@@ -30,12 +29,12 @@ class Categoria {
         return $this->id;
     }
 
-    public function getNome() {
-        return $this->nome;
-    }
-
     public function setId($id) {
         $this->id = $id;
+    }
+
+    public function getNome() {
+        return $this->nome;
     }
 
     public function setNome($nome) {
