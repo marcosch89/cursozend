@@ -2,9 +2,17 @@
 
 namespace Livraria;
 
+use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\MvcEvent;
+
 use Livraria\Model\CategoriaTable;
+use Livraria\Service\Categoria as CategoriaService;
+use Livraria\Service\Livro as LivroService;
+use LivrariaAdmin\Form\Livro as LivroFrm;
 
 class Module {
+    
+    protected $em;
 
     public function getConfig() {
         return include __DIR__ . '/config/module.config.php';
@@ -31,8 +39,22 @@ class Module {
             $categoriaService = new Model\CategoriaService($categoriaTable);
             return $categoriaService;
         },
+                'Livraria\Service\Categoria' => function ($service) {
+                    return new CategoriaService($service->get('Doctrine\ORM\EntityManager'));
+                },
+                'Livraria\Service\Livro' => function($service){
+                    return new LivroService($service->get('Doctrine\ORM\EntityManager'));
+                },
+                'LivrariaAdmin\Form\Livro' => function($service){
+                    
+                    $em = $service->get('Doctrine\Orm\EntityManager');
+                    
+                    $repository = $em->getRepository('Livraria\Entity\Categoria');
+                    $categorias = $repository->fetchPairs();
+                    
+                    return new LivroFrm(null, $categorias);
+                },
             ),
-        );
+                    );
     }
-
 }
