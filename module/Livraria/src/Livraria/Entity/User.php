@@ -50,6 +50,10 @@ class User {
 
     public function getId() {
         return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
         return $this;
     }
 
@@ -57,38 +61,42 @@ class User {
         return $this->nome;
     }
 
+    public function setNome($nome) {
+        $this->nome = $nome;
+        return $this;
+    }
+
     public function getEmail() {
         return $this->email;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
+        return $this;
     }
 
     public function getPassword() {
         return $this->password;
     }
 
+    public function setPassword($password) {
+
+        $hashSenha = $this->encryptPassword($password);
+        $this->password = $hashSenha;
+        return $this;
+    }
+
     public function getSalt() {
         return $this->salt;
     }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
-
-    public function setNome($nome) {
-        $this->nome = $nome;
-        return $this;
-    }
-
-    public function setEmail($email) {
-        $this->email = $email;
-    }
-
-    public function setPassword($password) {
-        $hashSenha = hash('sha512', $password . $this->salt);
-        for ($i = 0; $i < 64000; $i++)
+    public function encryptPassword($password) {
+        $hashSenha = hash('sha512', $password . $salt);
+        for ($i = 0; $i < 64000; $i++) {
             $hashSenha = hash('sha512', $hashSenha);
+        }
 
-        $this->password = $hashSenha;
-        return $this;
+        return $hashSenha;
     }
 
     public function toArray() {
