@@ -4,8 +4,10 @@ namespace LivrariaAdmin\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\ViewModel;
-use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\Storage\Session as SessionStorage;
+
+use Zend\Authentication\AuthenticationService,
+    Zend\Authentication\Storage\Session as SessionStorage;
+
 use LivrariaAdmin\Form\Login as LoginForm;
 
 class AuthController extends AbstractActionController {
@@ -35,6 +37,15 @@ class AuthController extends AbstractActionController {
             }
         }
         return new ViewModel(array('form' => $form, 'error' => $error));
+    }
+    
+    public function logoutAction() {
+        
+        $auth = new AuthenticationService;
+        $auth->setStorage(new SessionStorage('LivrariaAdmin'));
+        $auth->clearIdentity();
+        
+        return $this->redirect()->toRoute('livraria-admin-auth');
     }
 
 }

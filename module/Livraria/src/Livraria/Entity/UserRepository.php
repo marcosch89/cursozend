@@ -13,8 +13,7 @@ class UserRepository extends EntityRepository {
             $salt = $user->getSalt();
 
             $hashSenha = $user->encryptPassword($password);
-        var_dump($user);
-        var_dump($hashSenha);
+      
 
             if ($hashSenha == $user->getPassword()) {
                 return $user;

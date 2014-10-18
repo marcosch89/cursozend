@@ -13,7 +13,6 @@ class User extends AbstractService {
     }
 
     public function update(array $data) {
-
         $entity = $this->em->getReference($this->entity, $data['id']);
 
         if (empty($data['password']))

@@ -20,8 +20,8 @@ return array(
                 'options' => array(
                     'route' => '/admin/[:controller[/:action]][/:id]',
                     'constraints' => array(
-                        'id' => '[0-9]+'
-                    ),
+                        'id'=> '[0-9]+'
+                    )
                 ),
             ),
             'livraria-admin' => array(
@@ -35,12 +35,22 @@ return array(
                 ),
             ),
             'livraria-admin-auth' => array(
-                'type' => 'Segment',
+                'type' => 'Literal',
                 'options' => array(
                     'route' => '/admin/auth',
                     'defaults' => array(
                         'action' => 'index',
-                        'controller' => 'livraria-admin/auth'
+                        'controller'=>'livraria-admin/auth'
+                    ),
+                ),
+            ),
+            'livraria-admin-logout' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/admin/auth/logout',
+                    'defaults' => array(
+                        'action' => 'logout',
+                        'controller'=>'livraria-admin/auth'
                     ),
                 ),
             ),
@@ -55,6 +65,12 @@ return array(
             'livraria-admin/auth' => 'LivrariaAdmin\Controller\AuthController',
         ),
     ),
+    
+    'module_layouts' => array(
+      'Livraria' => 'layout/layout',
+      'LivrariaAdmin' => 'layout/layout-admin'
+    ),
+    
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions' => true,
@@ -69,6 +85,21 @@ return array(
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
+        ),
+    ),
+    'service_manager' => array(
+        'factories' => array(
+            'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
+        ),
+    ),
+    'translator' => array(
+        'locale' => 'en_US',
+        'translation_patterns' => array(
+            array(
+                'type' => 'gettext',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern' => '%s.mo',
+            ),
         ),
     ),
     'doctrine' => array(
